@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WealthParkAssignment</string>
+    <string name="cities_header">Main Cities In Japan</string>
+    <string name="foods_header">Most Popular Japanese Food</string>
+    <string name="loading">Loading…</string>
+    <string name="error_fetching_data">Error fetching data</string>
+</resources>
