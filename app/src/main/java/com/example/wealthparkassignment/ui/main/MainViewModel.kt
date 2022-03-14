@@ -10,9 +10,6 @@ import com.example.wealthparkassignment.util.PairMediatorLiveData
 import com.example.wealthparkassignment.util.single_live_event.LiveEvent
 import com.example.wealthparkassignment.util.single_live_event.SingleLiveEvent
 import io.reactivex.rxjava3.core.Observable
-//import io.reactivex.rxjava3.core.Flowable.just
-//import io.reactivex.rxjava3.core.Maybe.just
-//import io.reactivex.rxjava3.core.Single.just
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -30,8 +27,7 @@ class MainViewModel @Inject constructor(val apiUseCase: ApiUseCase, private val 
     var pairMediatorLiveData = PairMediatorLiveData(citiesLiveData, foodsLiveData)
 
 
-    fun refreshData(){
-        //appDatabase.citiesDAO().insert(GetCitiesResponse.GetCitiesResponseItem(description = "test", image = "test", name = "test"))
+    fun refreshData() {
         pairMediatorLiveData.value = null
         pairMediatorLiveData = PairMediatorLiveData(citiesLiveData, foodsLiveData)
         getCities()
@@ -45,7 +41,8 @@ class MainViewModel @Inject constructor(val apiUseCase: ApiUseCase, private val 
             .subscribe({
                 statusGetCities.postValue(LiveEvent.Success())
                 _cities.value = it
-                Observable.fromCallable { Runnable { appDatabase.citiesDAO().insertAllCities(it.toMutableList()) } .run()}.subscribeOn(Schedulers.io())
+                Observable.fromCallable { Runnable { appDatabase.citiesDAO().insertAllCities(it.toMutableList()) }.run() }
+                    .subscribeOn(Schedulers.io())
                     .subscribe()
             }, {
                 statusGetCities.postValue(LiveEvent.Error())
@@ -60,7 +57,7 @@ class MainViewModel @Inject constructor(val apiUseCase: ApiUseCase, private val 
             .subscribe({
                 statusGetFoods.postValue(LiveEvent.Success())
                 _foods.value = it
-                Observable.fromCallable { Runnable { appDatabase.foodsDAO().insertAllFoods(it.toMutableList()) } .run()}.subscribeOn(Schedulers.io())
+                Observable.fromCallable { Runnable { appDatabase.foodsDAO().insertAllFoods(it.toMutableList()) }.run() }.subscribeOn(Schedulers.io())
                     .subscribe()
             }, {
                 statusGetFoods.postValue(LiveEvent.Error())

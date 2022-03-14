@@ -63,7 +63,6 @@ class ApplicationModule {
         return retrofit.create(ApiService::class.java)
     }
 
-
     @Singleton
     @Provides
     fun provideOkHttpClient(context: Context,sharedPreferences: SharedPreferences): OkHttpClient {
@@ -80,32 +79,6 @@ class ApplicationModule {
             .build()
 
     }
-
-//
-//    @Singleton
-//    @Provides
-//    fun provideOkHttpClient(context: Context): OkHttpClient {
-//        val interceptor = HttpLoggingInterceptor()
-//        // set your desired log level
-//        interceptor.level =
-//            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-//            else HttpLoggingInterceptor.Level.NONE
-//
-//        return OkHttpClient.Builder()
-//            .readTimeout(30, TimeUnit.SECONDS)
-//            .connectTimeout(30, TimeUnit.SECONDS)
-//            .addInterceptor(ConnectivityInterceptor(context))
-//            .addInterceptor(interceptor)
-//            .addInterceptor {
-//                val request = it.request()
-//                val response = it.proceed(request)
-//                if (response.code() == 401) {
-//                    Timber.d("SESSION EXPIRED!")
-//                }
-//                response
-//            }
-//            .build()
-//    }
 
 
     @Singleton
